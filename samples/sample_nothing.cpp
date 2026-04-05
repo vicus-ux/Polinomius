@@ -1,13 +1,15 @@
 ﻿#include <iostream>
 #include <string>
-#include <unordered_map>
 
 #include "mainer.h"
 
 int main()
 {
     Calculator Polsha;
-    std::unordered_map<std::string, Polinom> perem;
+    SortedMap<std::string, Polinom> peremSortedMap;
+    BlackRedTree<std::string, Polinom> peremBlackRedTree;
+    Hash<std::string, Polinom> peremHash;
+    int whatToUse = 1;
     while (true)
     {
         std::cout << "> ";
@@ -21,7 +23,21 @@ int main()
         //
         try
         {
-            Polinom result = Polsha.ArithmeticCalculator(input, perem);
+            Polinom result;
+            switch (whatToUse)
+            {
+            case 1:
+                result = Polsha.ArithmeticCalculator(input, peremSortedMap);
+                break;
+            case 2:
+                result = Polsha.ArithmeticCalculator(input, peremBlackRedTree);
+                break;
+            case 3:
+                result = Polsha.ArithmeticCalculator(input, peremHash);
+                break;
+            default:
+                break;
+            }
             std::cout << "Result: " << result << std::endl;
         }
         catch (const std::exception& excep)
